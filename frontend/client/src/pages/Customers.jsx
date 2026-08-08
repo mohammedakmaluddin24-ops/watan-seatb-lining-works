@@ -52,7 +52,7 @@ const fetchCustomers=async()=>{
 try{
 
 const res=await axios.get(
-"http://localhost:5000/api/customers"
+"https://watan-seat-lining-works-backend.onrender.com/api/customers"
 );
 
 
