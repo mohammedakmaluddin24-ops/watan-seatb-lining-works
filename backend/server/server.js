@@ -18,8 +18,8 @@ app.use(
   cors({
     origin: function (origin, callback) {
 
-      // Allow requests without an origin
-      // (Thunder Client, Postman, server-to-server, etc.)
+      // Allow requests from tools such as
+      // Thunder Client / Postman
       if (!origin) {
         return callback(null, true);
       }
@@ -49,10 +49,6 @@ app.use(
     credentials: false,
   })
 );
-
-
-// Handle OPTIONS preflight requests
-app.options("*", cors());
 
 
 // ===============================
@@ -102,11 +98,9 @@ app.use(
 // ===============================
 
 app.get("/", (req, res) => {
-
   res.json({
     message: "Watan Seat Lining Works API is running 🚀",
   });
-
 });
 
 
@@ -115,12 +109,10 @@ app.get("/", (req, res) => {
 // ===============================
 
 app.use((req, res) => {
-
   res.status(404).json({
     success: false,
     message: "API route not found",
   });
-
 });
 
 
@@ -133,19 +125,16 @@ app.use((err, req, res, next) => {
   console.error("SERVER ERROR:", err);
 
   if (err.message === "Not allowed by CORS") {
-
     return res.status(403).json({
       success: false,
       message: "CORS blocked this request",
     });
-
   }
 
   res.status(500).json({
     success: false,
     message: "Internal server error",
   });
-
 });
 
 
@@ -156,9 +145,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-
-  console.log(
-    `Server running on port ${PORT}`
-  );
-
+  console.log(`Server running on port ${PORT}`);
 });
