@@ -29,7 +29,7 @@ function Works() {
   const fetchCustomers = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/customers"
+        "https://watan-seat-lining-works-backend.onrender.com/api/customers"
       );
 
       setCustomers(res.data);
@@ -44,7 +44,7 @@ function Works() {
   const fetchWorks = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/works"
+        "https://watan-seat-lining-works-backend.onrender.com/api/works"
       );
 
       setWorks(res.data);
@@ -151,7 +151,7 @@ function Works() {
     try {
       if (isEditing && editingId) {
         await axios.put(
-          `http://localhost:5000/api/works/${editingId}`,
+          `https://watan-seat-lining-works-backend.onrender.com/api/works/${editingId}`,
           form
         );
 
@@ -160,7 +160,7 @@ function Works() {
        if (editingId) {
 
   await axios.put(
-    `http://localhost:5000/api/works/${editingId}`,
+    `https://watan-seat-lining-works-backend.onrender.com/api/works/${editingId}`,
     form
   );
 
@@ -169,7 +169,7 @@ function Works() {
 } else {
 
   await axios.post(
-    "http://localhost:5000/api/works",
+    "https://watan-seat-lining-works-backend.onrender.com/api/works",
     form
   );
 
@@ -532,7 +532,7 @@ function Works() {
     onClick={async () => {
       if (window.confirm("Delete this work order?")) {
         await axios.delete(
-          `http://localhost:5000/api/works/${work.id}`
+          `https://watan-seat-lining-works-backend.onrender.com/api/works/${work.id}`
         );
 
         fetchWorks();

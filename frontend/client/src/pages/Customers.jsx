@@ -112,7 +112,7 @@ if(editingId){
 
 await axios.put(
 
-`http://localhost:5000/api/customers/${editingId}`,
+`https://watan-seat-lining-works-backend.onrender.com/api/customers/${editingId}`,
 
 {
 
@@ -135,7 +135,7 @@ else{
 
 await axios.post(
 
-"http://localhost:5000/api/customers",
+"https://watan-seat-lining-works-backend.onrender.com/api/customers",
 
 {
 
@@ -229,7 +229,7 @@ if(window.confirm("Delete this customer?")){
 
 await axios.delete(
 
-`http://localhost:5000/api/customers/${id}`
+`https://watan-seat-lining-works-backend.onrender.com/api/customers/${id}`
 
 );
 

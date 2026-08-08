@@ -17,12 +17,12 @@ const [statusFilter, setStatusFilter] = useState("All");
     try{
 
       const summaryRes = await axios.get(
-        "http://localhost:5000/api/reports"
+        "https://watan-seat-lining-works-backend.onrender.com/api/reports"
       );
 
 
       const detailsRes = await axios.get(
-        "http://localhost:5000/api/reports/details"
+        "https://watan-seat-lining-works-backend.onrender.com/api/reports/details"
       );
 
 

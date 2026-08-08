@@ -67,7 +67,7 @@ function Dashboard() {
     try{
 
       const res = await axios.get(
-        "http://localhost:5000/api/dashboard"
+        "https://watan-seat-lining-works-backend.onrender.com/api/dashboard"
       );
 
       setData(res.data);
@@ -90,7 +90,7 @@ function Dashboard() {
     try{
 
       const res = await axios.get(
-        "http://localhost:5000/api/dashboard/charts"
+        "https://watan-seat-lining-works-backend.onrender.com/api/dashboard/charts"
       );
 
 

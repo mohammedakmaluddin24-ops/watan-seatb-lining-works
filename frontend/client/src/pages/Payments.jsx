@@ -29,19 +29,19 @@ function Payments() {
 
       const customerRes =
       await axios.get(
-        "http://localhost:5000/api/customers"
+        "https://watan-seat-lining-works-backend.onrender.com/api/customers"
       );
 
 
       const workRes =
       await axios.get(
-        "http://localhost:5000/api/works"
+        "https://watan-seat-lining-works-backend.onrender.com/api/works"
       );
 
 
       const paymentRes =
       await axios.get(
-        "http://localhost:5000/api/payments"
+        "https://watan-seat-lining-works-backend.onrender.com/api/payments"
       );
 
 
@@ -104,7 +104,7 @@ function Payments() {
 
       await axios.post(
 
-        "http://localhost:5000/api/payments",
+        "https://watan-seat-lining-works-backend.onrender.com/api/payments",
 
         form
 
