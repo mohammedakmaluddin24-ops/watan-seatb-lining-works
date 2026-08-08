@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Invoice from "../components/Invoice";
+import Invoice from "../components/Invoice.jsx";
 function Works() {
   const [works, setWorks] = useState([]);
   const [customers, setCustomers] = useState([]);
