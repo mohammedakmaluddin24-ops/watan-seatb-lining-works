@@ -4,7 +4,7 @@ const router = express.Router();
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
-  if (username === "admin" && password === "admin123") {
+  if (username === "admin" && password === "admin786") {
     return res.json({
       success: true,
       user: {
