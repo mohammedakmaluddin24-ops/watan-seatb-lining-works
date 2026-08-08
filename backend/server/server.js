@@ -7,14 +7,19 @@ const authRoutes = require("./routes/auth");
 const app = express();
 
 
+const allowedOrigin =
+  "https://watan-seatb-lining-works-gdvycsvol.vercel.app";
+
 app.use(
   cors({
-    origin: true,
-    credentials: true,
+    origin: allowedOrigin,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
   })
 );
-app.use(express.json());
 
+app.use(express.json());
 
 
 // Routes
