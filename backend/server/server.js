@@ -6,7 +6,6 @@ const reportRoutes = require("./routes/reports");
 const authRoutes = require("./routes/auth");
 const app = express();
 
-
 const allowedOrigin =
   "https://watan-seatb-lining-works-gdvycsvol.vercel.app";
 
@@ -20,7 +19,6 @@ app.use(
 );
 
 app.use(express.json());
-
 
 // Routes
 app.use("/api/customers", require("./routes/customers"));
