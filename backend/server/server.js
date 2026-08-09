@@ -11,10 +11,14 @@ const app = express();
 // CORS
 // ===============================
 
+const allowedOrigins = [
+  "https://watan-seatb-lining-works-m1h5msujw.vercel.app",
+  "https://watan-seatb-lining-works-gdvycsvol.vercel.app",
+];
+
 app.use(
   cors({
     origin: function (origin, callback) {
-
       // Allow requests without an Origin
       // (Postman, Thunder Client, etc.)
       if (!origin) {
@@ -31,9 +35,11 @@ app.use(
       }
 
       // Allow the main Vercel URL if you create one
-      if (
-        origin === "https://watan-seatb-lining-works.vercel.app"
-      ) {
+      if (origin === "https://watan-seatb-lining-works.vercel.app") {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 
