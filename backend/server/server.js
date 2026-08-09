@@ -2,51 +2,157 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const reportRoutes = require("./routes/reports");
 const authRoutes = require("./routes/auth");
+
 const app = express();
 
-const allowedOrigin =
-  "https://watan-seatb-lining-works-gdvycsvol.vercel.app";
+
+// ===============================
+// CORS
+// ===============================
 
 app.use(
   cors({
-    origin: allowedOrigin,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: function (origin, callback) {
+
+      // Allow requests without an Origin
+      // (Postman, Thunder Client, etc.)
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      // Allow Vercel deployment URLs
+      if (
+        /^https:\/\/watan-seatb-lining-works-[a-z0-9]+\.vercel\.app$/.test(
+          origin
+        )
+      ) {
+        return callback(null, true);
+      }
+
+      // Allow the main Vercel URL if you create one
+      if (
+        origin === "https://watan-seatb-lining-works.vercel.app"
+      ) {
+        return callback(null, true);
+      }
+
+      console.log("CORS blocked:", origin);
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+
+    methods: [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "OPTIONS",
+    ],
+
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+    ],
+
     credentials: false,
   })
 );
 
+
+// ===============================
+// Middleware
+// ===============================
+
 app.use(express.json());
 
+
+// ===============================
 // Routes
-app.use("/api/customers", require("./routes/customers"));
-app.use("/api/auth", authRoutes);
-app.use("/api/works", require("./routes/works"));
+// ===============================
 
-app.use("/api/payments", require("./routes/payments"));
+app.use(
+  "/api/customers",
+  require("./routes/customers")
+);
 
-app.use("/api/dashboard", require("./routes/dashboard"));
+app.use(
+  "/api/auth",
+  authRoutes
+);
 
-app.use("/api/reports", require("./routes/reports"));
+app.use(
+  "/api/works",
+  require("./routes/works")
+);
+
+app.use(
+  "/api/payments",
+  require("./routes/payments")
+);
+
+app.use(
+  "/api/dashboard",
+  require("./routes/dashboard")
+);
+
+app.use(
+  "/api/reports",
+  require("./routes/reports")
+);
 
 
+// ===============================
+// Test API
+// ===============================
 
-// Test
-app.get("/", (req,res)=>{
-    res.json({
-        message:"Watan Seat Lining Works API is running 🚀"
-    });
+app.get("/", (req, res) => {
+  res.json({
+    message: "Watan Seat Lining Works API is running 🚀",
+  });
 });
 
 
+// ===============================
+// 404
+// ===============================
+
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "API route not found",
+  });
+});
+
+
+// ===============================
+// Error Handler
+// ===============================
+
+app.use((err, req, res, next) => {
+
+  console.error("SERVER ERROR:", err);
+
+  if (err.message === "Not allowed by CORS") {
+    return res.status(403).json({
+      success: false,
+      message: "CORS blocked this request",
+    });
+  }
+
+  res.status(500).json({
+    success: false,
+    message: "Internal server error",
+  });
+});
+
+
+// ===============================
+// Start Server
+// ===============================
 
 const PORT = process.env.PORT || 5000;
 
-
-app.listen(PORT,()=>{
-
-    console.log(`Server running on port ${PORT}`);
-
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
