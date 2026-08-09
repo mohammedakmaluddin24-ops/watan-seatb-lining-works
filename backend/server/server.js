@@ -2,8 +2,6 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 
-const authRoutes = require("./routes/auth");
-
 const app = express();
 
 
@@ -13,48 +11,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-
-      // Allow requests without an Origin
-      // (Postman, Thunder Client, etc.)
-      if (!origin) {
-        return callback(null, true);
-      }
-
-      // Allow Vercel deployment URLs
-      if (
-        /^https:\/\/watan-seatb-lining-works-[a-z0-9]+\.vercel\.app$/.test(
-          origin
-        )
-      ) {
-        return callback(null, true);
-      }
-
-      // Allow the main Vercel URL if you create one
-      if (
-        origin === "https://watan-seatb-lining-works.vercel.app"
-      ) {
-        return callback(null, true);
-      }
-
-      console.log("CORS blocked:", origin);
-
-      return callback(new Error("Not allowed by CORS"));
-    },
-
-    methods: [
-      "GET",
-      "POST",
-      "PUT",
-      "DELETE",
-      "OPTIONS",
-    ],
-
-    allowedHeaders: [
-      "Content-Type",
-      "Authorization",
-    ],
-
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: false,
   })
 );
@@ -78,7 +37,7 @@ app.use(
 
 app.use(
   "/api/auth",
-  authRoutes
+  require("./routes/auth")
 );
 
 app.use(
@@ -103,7 +62,7 @@ app.use(
 
 
 // ===============================
-// Test API
+// API TEST
 // ===============================
 
 app.get("/", (req, res) => {
@@ -130,15 +89,7 @@ app.use((req, res) => {
 // ===============================
 
 app.use((err, req, res, next) => {
-
   console.error("SERVER ERROR:", err);
-
-  if (err.message === "Not allowed by CORS") {
-    return res.status(403).json({
-      success: false,
-      message: "CORS blocked this request",
-    });
-  }
 
   res.status(500).json({
     success: false,
@@ -148,7 +99,7 @@ app.use((err, req, res, next) => {
 
 
 // ===============================
-// Start Server
+// START SERVER
 // ===============================
 
 const PORT = process.env.PORT || 5000;
