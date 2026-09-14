@@ -9,8 +9,8 @@ function Login() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    username: "",
-    password: "",
+    username: "admin",
+    password: "admin123",
   });
 
   const [loading, setLoading] = useState(false);
