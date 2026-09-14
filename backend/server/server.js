@@ -4,27 +4,16 @@ require("dotenv").config();
 
 const app = express();
 
-
 // ===============================
-// CORS
+// CORS - TEMPORARY FIX
 // ===============================
-
-app.use(
-  cors({
-    origin: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: false,
-  })
-);
-
+app.use(cors());
 
 // ===============================
 // Middleware
 // ===============================
 
 app.use(express.json());
-
 
 // ===============================
 // Routes
@@ -60,7 +49,6 @@ app.use(
   require("./routes/reports")
 );
 
-
 // ===============================
 // API TEST
 // ===============================
@@ -70,7 +58,6 @@ app.get("/", (req, res) => {
     message: "Watan Seat Lining Works API is running 🚀",
   });
 });
-
 
 // ===============================
 // 404
@@ -82,7 +69,6 @@ app.use((req, res) => {
     message: "API route not found",
   });
 });
-
 
 // ===============================
 // Error Handler
@@ -96,7 +82,6 @@ app.use((err, req, res, next) => {
     message: "Internal server error",
   });
 });
-
 
 // ===============================
 // START SERVER
